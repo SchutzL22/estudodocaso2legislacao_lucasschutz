@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucas Schutz · Guia de Debate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080a0f;
+  --s1: #0f1118;
+  --s2: #161b27;
+  --s3: #1d2335;
+  --border: #252d42;
+  --border2: #2f3a55;
+  --gold: #f0c040;
+  --gold2: #c8960a;
+  --red: #e03535;
+  --green: #22c55e;
+  --blue: #3b82f6;
+  --text: #e8edf8;
+  --muted: #7a87a8;
+  --muted2: #4d5a7a;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+/* ─── HEADER ─── */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:52px;
+  background:rgba(8,10,15,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;
+  padding:0 1.5rem;gap:1rem;
+}
+.hlogo{
+  font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;
+  color:var(--gold);letter-spacing:.02em;white-space:nowrap;
+}
+.hlogo span{color:var(--muted);font-weight:700}
+.hnav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.hnav a{
+  color:var(--muted);text-decoration:none;
+  font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:600;
+  padding:.28rem .55rem;border-radius:5px;border:1px solid transparent;
+  transition:all .18s;letter-spacing:.04em;
+}
+.hnav a:hover{color:var(--gold);border-color:var(--gold)}
+
+/* ─── HERO ─── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:5rem 2rem 3rem;
+  position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 30%, rgba(240,192,64,.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(59,130,246,.04) 0%, transparent 70%);
+}
+.hero-grid{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(var(--border) 1px,transparent 1px),
+    linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:40px 40px;
+  opacity:.25;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%);
+}
+.hero-inner{max-width:800px;margin:0 auto;width:100%;position:relative}
+
+.badge-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.badge{
+  font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  padding:.22rem .65rem;border-radius:100px;
+}
+.badge-gold{background:rgba(240,192,64,.12);color:var(--gold);border:1px solid rgba(240,192,64,.3)}
+.badge-red{background:rgba(224,53,53,.12);color:var(--red);border:1px solid rgba(224,53,53,.3)}
+.badge-green{background:rgba(34,197,94,.12);color:var(--green);border:1px solid rgba(34,197,94,.3)}
+.badge-blue{background:rgba(59,130,246,.12);color:var(--blue);border:1px solid rgba(59,130,246,.3)}
+.badge-muted{background:rgba(122,135,168,.08);color:var(--muted);border:1px solid var(--border)}
+
+h1{
+  font-family:'Syne',sans-serif;font-size:clamp(2.8rem,8vw,5.5rem);
+  font-weight:800;line-height:1.0;margin-bottom:.6rem;
+  letter-spacing:-.02em;
+}
+h1 .name{color:var(--text)}
+h1 .gold{color:var(--gold)}
+
+.hero-sub{
+  font-size:1.05rem;color:var(--muted);max-width:560px;
+  margin-bottom:2.5rem;line-height:1.65;
+}
+.hero-sub strong{color:var(--text)}
+
+.chips-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:3rem}
+.chip{
+  display:flex;align-items:center;gap:.4rem;
+  background:var(--s2);border:1px solid var(--border2);
+  border-radius:8px;padding:.45rem .85rem;
+  font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:600;
+  color:var(--text);
+}
+.chip .dot{width:6px;height:6px;border-radius:50%}
+.dot-red{background:var(--red)}
+.dot-gold{background:var(--gold)}
+.dot-green{background:var(--green)}
+
+/* team position strip */
+.team-strip{display:flex;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.team-member{
+  flex:1;padding:.7rem .6rem;text-align:center;
+  border-right:1px solid var(--border);
+  background:var(--s1);transition:background .2s;
+}
+.team-member:last-child{border-right:none}
+.team-member.me{background:rgba(240,192,64,.1);border-top:2px solid var(--gold)}
+.team-member .num{
+  font-family:'JetBrains Mono',monospace;font-size:.65rem;
+  color:var(--muted);display:block;margin-bottom:.2rem;
+}
+.team-member .tname{font-size:.78rem;font-weight:600;color:var(--text)}
+.team-member.me .tname{color:var(--gold)}
+.team-member .trole{font-size:.63rem;color:var(--muted);margin-top:.1rem}
+
+/* ─── SECTIONS ─── */
+section{max-width:800px;margin:0 auto;padding:4rem 2rem}
+
+.sec-tag{
+  font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--gold);
+  display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;
+}
+.sec-tag::after{content:'';flex:1;height:1px;background:var(--border)}
+
+h2{
+  font-family:'Syne',sans-serif;font-size:clamp(1.5rem,4vw,2.1rem);
+  font-weight:800;margin-bottom:1.2rem;letter-spacing:-.01em;
+}
+
+/* ─── CASE CARDS ─── */
+.case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.75rem;margin-bottom:1.5rem}
+.case-card{
+  background:var(--s2);border:1px solid var(--border);border-radius:10px;
+  padding:1.1rem;position:relative;overflow:hidden;
+}
+.case-card::before{
+  content:attr(data-n);position:absolute;top:-.8rem;right:.5rem;
+  font-family:'Syne',sans-serif;font-size:5rem;font-weight:800;
+  opacity:.04;color:var(--text);pointer-events:none;
+}
+.case-card .ctag{
+  font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:700;
+  letter-spacing:.1em;margin-bottom:.5rem;display:block;
+}
+.case-card h4{font-size:.95rem;font-weight:600;margin-bottom:.4rem}
+.case-card p{font-size:.85rem;color:var(--muted);line-height:1.5}
+.case-card p strong{color:var(--text)}
+.ct-vicio .ctag{color:var(--gold)}
+.ct-vicio{border-top:2px solid var(--gold)}
+.ct-fato .ctag{color:var(--red)}
+.ct-fato{border-top:2px solid var(--red)}
+.ct-pub .ctag{color:var(--blue)}
+.ct-pub{border-top:2px solid var(--blue)}
+
+/* ─── TIMELINE ─── */
+.tl{position:relative;padding-left:1.5rem;margin-top:1rem}
+.tl::before{
+  content:'';position:absolute;left:.45rem;top:.5rem;bottom:.5rem;
+  width:2px;background:linear-gradient(to bottom,var(--gold),var(--red));
+  border-radius:1px;
+}
+.tl-item{
+  position:relative;margin-bottom:.8rem;
+  background:var(--s2);border:1px solid var(--border);border-radius:8px;
+  padding:.8rem 1rem;
+}
+.tl-item::before{
+  content:'';position:absolute;left:-1.22rem;top:1rem;
+  width:10px;height:10px;border-radius:50%;
+  background:var(--gold);border:2px solid var(--bg);
+}
+.tl-item.bad::before{background:var(--red)}
+.tl-item .tdate{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--muted);margin-bottom:.2rem}
+.tl-item h4{font-size:.9rem;font-weight:600;margin-bottom:.15rem}
+.tl-item p{font-size:.82rem;color:var(--muted)}
+.tl-item p strong{color:var(--text)}
+
+/* ─── SPEECH BOX ─── */
+.speech{
+  background:var(--s2);border-radius:0 10px 10px 0;
+  border-left:3px solid var(--gold);padding:1.1rem 1.2rem;
+  font-style:italic;font-size:.95rem;line-height:1.65;
+  position:relative;margin:1rem 0;
+}
+.speech-label{
+  font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:700;
+  letter-spacing:.1em;color:var(--gold);margin-bottom:.5rem;display:block;
+}
+
+/* ─── BULLET LIST ─── */
+.blist{list-style:none;background:var(--s2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.blist li{
+  display:flex;gap:.6rem;padding:.75rem 1rem;
+  border-bottom:1px solid var(--border);font-size:.9rem;
+  align-items:flex-start;
+}
+.blist li:last-child{border-bottom:none}
+.blist li::before{content:'→';color:var(--gold);flex-shrink:0;font-weight:700;margin-top:.05rem}
+.blist li strong{color:var(--gold)}
+.blist li.highlight{background:rgba(224,53,53,.06)}
+.blist li.highlight::before{color:var(--red)}
+
+/* ─── DIFF TABLE ─── */
+.diff{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.diff-col{padding:1rem}
+.diff-col:first-child{border-right:1px solid var(--border)}
+.diff-col .dhead{
+  font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:700;
+  letter-spacing:.08em;padding-bottom:.6rem;border-bottom:1px solid var(--border);
+  margin-bottom:.8rem;
+}
+.diff-row{font-size:.85rem;padding:.4rem 0;border-bottom:1px solid var(--border);color:var(--muted)}
+.diff-row:last-child{border-bottom:none}
+.diff-row strong{color:var(--text);display:block;font-size:.88rem}
+
+/* ─── LAW TABLE ─── */
+.law-tbl{width:100%;border-collapse:collapse;font-size:.85rem}
+.law-tbl thead tr{background:var(--s1)}
+.law-tbl th{
+  text-align:left;padding:.6rem .8rem;
+  font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:700;
+  letter-spacing:.12em;color:var(--gold);border-bottom:1px solid var(--border2);
+}
+.law-tbl td{
+  padding:.65rem .8rem;border-bottom:1px solid var(--border);
+  vertical-align:top;line-height:1.45;
+}
+.law-tbl tr:nth-child(even) td{background:var(--s1)}
+.law-tbl tr:hover td{background:var(--s2)}
+.law-tbl .art{
+  font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;
+  color:var(--gold);white-space:nowrap;
+}
+.law-tbl .mine td{background:rgba(224,53,53,.06)!important}
+.law-tbl .mine td:first-child{border-left:2px solid var(--red)}
+.law-tbl .mine .art{color:var(--red)}
+.tbl-wrap{background:var(--s2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+
+/* ─── COUNTER BLOCKS ─── */
+.counter-list{display:grid;gap:.75rem}
+.counter{border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+.counter-def{
+  background:rgba(224,53,53,.15);border-bottom:1px solid rgba(224,53,53,.2);
+  padding:.65rem 1rem;font-size:.85rem;font-weight:600;color:#f87171;
+  display:flex;gap:.5rem;align-items:flex-start;
+}
+.counter-def::before{content:'Defesa:';font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:700;color:var(--red);flex-shrink:0;margin-top:.05rem;letter-spacing:.06em}
+.counter-mp{
+  background:var(--s2);padding:.75rem 1rem;font-size:.88rem;
+  display:flex;gap:.6rem;align-items:flex-start;
+}
+.counter-mp::before{content:'MP ›';font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:700;color:var(--green);flex-shrink:0;margin-top:.1rem}
+
+/* ─── QUESTIONS ─── */
+.q-list{display:grid;gap:.5rem}
+.q-item{
+  background:var(--s2);border:1px solid var(--border);
+  border-left:3px solid var(--green);border-radius:0 8px 8px 0;
+  padding:.8rem 1rem;font-size:.9rem;
+  display:flex;gap:.6rem;align-items:flex-start;
+}
+.q-item::before{content:'?';font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green);flex-shrink:0;font-size:1rem}
+
+/* ─── MINI COLA ─── */
+.cola-tbl{width:100%;border-collapse:collapse;font-size:.85rem}
+.cola-tbl th{
+  text-align:left;padding:.55rem .8rem;
+  font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:700;
+  letter-spacing:.12em;color:var(--gold);border-bottom:1px solid var(--border2);
+  background:var(--s1);
+}
+.cola-tbl td{padding:.6rem .8rem;border-bottom:1px solid var(--border);vertical-align:middle;line-height:1.4}
+.cola-tbl tr:nth-child(even) td{background:var(--s1)}
+.cola-tbl tr.mine td{background:rgba(224,53,53,.08)!important;border-top:1px solid rgba(224,53,53,.3);border-bottom:1px solid rgba(224,53,53,.3)}
+.cola-tbl tr.mine td:first-child{border-left:2px solid var(--red)}
+.tag{
+  display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.65rem;
+  font-weight:700;padding:.15rem .45rem;border-radius:4px;
+}
+.tag-red{background:rgba(224,53,53,.15);color:var(--red);border:1px solid rgba(224,53,53,.3)}
+.tag-gold{background:rgba(240,192,64,.12);color:var(--gold);border:1px solid rgba(240,192,64,.25)}
+.tag-green{background:rgba(34,197,94,.12);color:var(--green);border:1px solid rgba(34,197,94,.25)}
+.tag-blue{background:rgba(59,130,246,.12);color:var(--blue);border:1px solid rgba(59,130,246,.25)}
+
+/* ─── NEXO VISUAL ─── */
+.nexo{
+  display:flex;align-items:center;gap:0;
+  background:var(--s2);border:1px solid var(--border);border-radius:10px;
+  overflow:hidden;margin:1rem 0;flex-wrap:wrap;
+}
+.nexo-step{
+  flex:1;min-width:120px;padding:.85rem .9rem;text-align:center;
+  border-right:1px solid var(--border);
+}
+.nexo-step:last-child{border-right:none}
+.nexo-step .ns-num{
+  font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--muted);
+  display:block;margin-bottom:.25rem;
+}
+.nexo-step .ns-label{font-size:.82rem;font-weight:600;color:var(--text)}
+.nexo-arrow{color:var(--gold);font-size:1.1rem;flex-shrink:0;padding:0 .2rem;display:none}
+
+/* ─── FRASE FINAL ─── */
+.final-box{
+  background:var(--s2);border:1px solid var(--border2);
+  border-radius:12px;padding:2rem;margin-top:1.5rem;
+  text-align:center;position:relative;overflow:hidden;
+}
+.final-box::before{
+  content:'"';position:absolute;top:-1rem;left:1rem;
+  font-family:'Syne',sans-serif;font-size:8rem;font-weight:800;
+  color:rgba(240,192,64,.07);line-height:1;pointer-events:none;
+}
+.final-quote{
+  font-family:'Syne',sans-serif;font-size:clamp(1.1rem,3vw,1.4rem);
+  font-weight:700;line-height:1.4;color:var(--text);margin-bottom:.75rem;
+}
+.final-quote em{color:var(--gold);font-style:normal}
+.final-attr{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted)}
+
+/* ─── FOOTER ─── */
+footer{
+  text-align:center;padding:2rem;
+  font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted2);
+  border-top:1px solid var(--border);
+}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:640px){
+  .hnav a{font-size:.6rem;padding:.22rem .4rem}
+  .team-strip{flex-wrap:wrap}
+  .team-member{flex:1 1 30%;min-width:90px}
+  .diff{grid-template-columns:1fr}
+  .diff-col:first-child{border-right:none;border-bottom:1px solid var(--border)}
+  .nexo{flex-direction:column}
+  .nexo-step{border-right:none;border-bottom:1px solid var(--border);width:100%}
+  .nexo-step:last-child{border-bottom:none}
+  .law-tbl,.cola-tbl{font-size:.78rem}
+  .law-tbl th,.cola-tbl th{font-size:.55rem}
+  section{padding:3rem 1.2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="hlogo">Lucas <span>·</span> MP</div>
+  <nav class="hnav">
+    <a href="#caso">Caso</a>
+    <a href="#papel">Papel</a>
+    <a href="#fala">Fala</a>
+    <a href="#args">Args</a>
+    <a href="#leis">Leis</a>
+    <a href="#contra">Contra</a>
+    <a href="#cola">Cola</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+
+    <div class="badge-row">
+      <span class="badge badge-muted">ADS · 3ª Fase</span>
+      <span class="badge badge-gold">Subgrupo 2 · Integrante 3</span>
+      <span class="badge badge-red">Fato do Serviço</span>
+      <span class="badge badge-green">Resp. Objetiva</span>
+    </div>
+
+    <h1>
+      <span class="name">Lucas</span><br>
+      <span class="gold">Schutz</span>
+    </h1>
+
+    <p class="hero-sub">
+      Sua colinha completa para o debate jurídico.<br>
+      Tema: <strong>Vazamento de Dados + Responsabilidade Objetiva</strong> — Art. 14 CDC + LGPD.
+    </p>
+
+    <div class="chips-row">
+      <div class="chip"><span class="dot dot-red"></span>Art. 14 CDC</div>
+      <div class="chip"><span class="dot dot-gold"></span>LGPD Art. 46 + 48</div>
+      <div class="chip"><span class="dot dot-green"></span>Resp. Objetiva</div>
+    </div>
+
+    <!-- POSIÇÃO NA EQUIPE -->
+    <div class="team-strip">
+      <div class="team-member">
+        <span class="num">01</span>
+        <div class="tname">Vitor Emanuel</div>
+        <div class="trole">Relação de consumo</div>
+      </div>
+      <div class="team-member">
+        <span class="num">02</span>
+        <div class="tname">Larissa Siegel</div>
+        <div class="trole">Bug do ICMS</div>
+      </div>
+      <div class="team-member me">
+        <span class="num">03</span>
+        <div class="tname">Lucas Schutz</div>
+        <div class="trole">Vazamento de dados</div>
+      </div>
+      <div class="team-member">
+        <span class="num">04</span>
+        <div class="tname">Tiago Duarte</div>
+        <div class="trole">Teoria do Risco</div>
+      </div>
+      <div class="team-member">
+        <span class="num">05</span>
+        <div class="tname">Laura Mello</div>
+        <div class="trole">Esfera Penal</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── CASO ── -->
+<section id="caso">
+  <div class="sec-tag">01 — O Caso</div>
+  <h2>Contexto geral</h2>
+
+  <div class="case-grid">
+    <div class="case-card ct-vicio" data-n="1">
+      <span class="ctag">Vício do Serviço</span>
+      <h4>Bug no ICMS</h4>
+      <p>Sistema calculava ICMS com alíquota errada. <strong>45 dias</strong> para corrigir. Padaria precisou contratar contador extra — prejuízo financeiro direto.</p>
+    </div>
+    <div class="case-card ct-fato" data-n="2">
+      <span class="ctag" style="color:var(--red)">Fato do Serviço — SEU TEMA</span>
+      <h4>Vazamento de Dados</h4>
+      <p>Atualização abriu brecha crítica. <strong>Diretoria soube e ocultou.</strong> 2 dias depois: hackers invadiram e vazaram CPFs e dados bancários de todos os clientes.</p>
+    </div>
+    <div class="case-card ct-pub" data-n="3">
+      <span class="ctag" style="color:var(--blue)">Publicidade Enganosa</span>
+      <h4>"Blindagem Total"</h4>
+      <p>Site prometia "Segurança Nível Bancário". Na prática: <strong>proteção básica de baixo custo</strong>, sem criptografia de ponta.</p>
+    </div>
+  </div>
+
+  <div class="sec-tag" style="margin-top:2rem">Linha do tempo</div>
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tdate">Janeiro 2024</div>
+      <h4>Atualização lançada</h4>
+      <p>SafeCloud promete "Automação Fiscal Total". Dois problemas críticos entram no ar.</p>
+    </div>
+    <div class="tl-item bad">
+      <div class="tdate">Semana 1</div>
+      <h4>Bug no ICMS detectado</h4>
+      <p>Padaria notifica suporte. SafeCloud admite a falha mas não tem patch imediato.</p>
+    </div>
+    <div class="tl-item bad">
+      <div class="tdate">Dias seguintes</div>
+      <h4>Brecha de segurança descoberta internamente</h4>
+      <p>Diretoria decide <strong>ocultar</strong> a vulnerabilidade para não perder clientes.</p>
+    </div>
+    <div class="tl-item bad">
+      <div class="tdate">2 dias após a descoberta</div>
+      <h4>Ataque — Vazamento de dados</h4>
+      <p>CPFs e dados bancários expostos. Dano concreto e irreversível à privacidade.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tdate">Dia 45</div>
+      <h4>Patch do ICMS liberado</h4>
+      <p>Tarde demais. Dados já vazados, prejuízo com contador consolidado.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── PAPEL ── -->
+<section id="papel">
+  <div class="sec-tag">02 — Seu Papel</div>
+  <h2>O que você apresenta</h2>
+
+  <p style="color:var(--muted);margin-bottom:1.25rem;font-size:.95rem">
+    Você fala <strong style="color:var(--text)">depois de Larissa</strong> (bug do ICMS) e
+    <strong style="color:var(--text)">antes de Tiago</strong> (Teoria do Risco).
+    Seu bloco é o centro do debate — o vazamento é o fato mais grave do caso.
+  </p>
+
+  <div class="nexo">
+    <div class="nexo-step">
+      <span class="ns-num">pré</span>
+      <div class="ns-label">Larissa<br><small style="color:var(--muted);font-size:.72rem">Bug ICMS</small></div>
+    </div>
+    <div class="nexo-step" style="background:rgba(224,53,53,.08);border-top:2px solid var(--red)">
+      <span class="ns-num" style="color:var(--red)">→ VOCÊ</span>
+      <div class="ns-label" style="color:var(--gold)">Lucas<br><small style="color:var(--muted);font-size:.72rem">Vazamento + Resp. Objetiva</small></div>
+    </div>
+    <div class="nexo-step">
+      <span class="ns-num">pós</span>
+      <div class="ns-label">Tiago<br><small style="color:var(--muted);font-size:.72rem">Teoria do Risco</small></div>
+    </div>
+  </div>
+
+  <div style="background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;margin-top:.75rem">
+    <p style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--gold);font-weight:700;letter-spacing:.1em;margin-bottom:.5rem">O QUE VOCÊ PRECISA COBRIR</p>
+    <ul class="blist" style="border:none;background:transparent">
+      <li>Provar que o vazamento é <strong>fato do serviço</strong> — não simples erro técnico</li>
+      <li>Explicar a <strong>responsabilidade objetiva</strong> — sem precisar provar culpa</li>
+      <li>Mostrar o <strong>nexo causal direto</strong>: atualização → brecha → ataque → dados expostos</li>
+      <li>Conectar com a <strong>LGPD</strong> — arts. 46 e 48 descumpridos</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ── FALA ── -->
+<section id="fala">
+  <div class="sec-tag">03 — Sua Fala</div>
+  <h2>Discurso para o debate</h2>
+
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:1rem">
+    Use como base — adapte com suas palavras. O importante é cobrir os três pilares abaixo.
+  </p>
+
+  <span class="speech-label">FALA PRINCIPAL</span>
+  <div class="speech">
+    O vazamento de dados bancários e CPFs não é um simples erro técnico — é um <strong>fato do serviço</strong>, também chamado de acidente de consumo. O CDC, em seu artigo 14, estabelece responsabilidade objetiva: não é necessário provar culpa da empresa. Basta a comprovação do dano e da falha no serviço — e aqui ambos estão evidentes. A brecha foi aberta pela própria atualização da SafeCloud. Os dados expostos são de clientes reais, com risco concreto de fraudes e prejuízos financeiros — violação grave da privacidade de pessoas que jamais autorizaram essa exposição.
+  </div>
+
+  <span class="speech-label" style="margin-top:1rem">COMPLEMENTO — se perguntarem sobre LGPD</span>
+  <div class="speech" style="border-left-color:var(--blue)">
+    Além do CDC, a Lei Geral de Proteção de Dados exige em seu artigo 46 que empresas adotem medidas técnicas e administrativas adequadas para proteger dados pessoais. E o artigo 48 impõe o <strong>dever de comunicar incidentes de segurança</strong> à autoridade nacional e aos titulares afetados. A SafeCloud descumpriu ambas: não protegeu adequadamente e não comunicou a brecha que ela mesma descobriu.
+  </div>
+
+  <div style="background:var(--s2);border:1px solid var(--border2);border-radius:10px;padding:1rem 1.2rem;margin-top:1rem">
+    <p style="font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--green);font-weight:700;letter-spacing:.1em;margin-bottom:.5rem">PASSAGEM PARA O TIAGO</p>
+    <p style="font-size:.88rem;color:var(--muted)">
+      Encerre dizendo algo como: <em style="color:var(--text)">"...e para complementar, meu colega Tiago vai explicar por que a SafeCloud não pode se esconder atrás do argumento de que foi culpa dos hackers."</em>
+    </p>
+  </div>
+</section>
+
+<!-- ── ARGS ── -->
+<section id="args">
+  <div class="sec-tag">04 — Argumentos-chave</div>
+  <h2>O que você precisa provar</h2>
+
+  <ul class="blist">
+    <li><strong>Fato do serviço (Art. 14 CDC):</strong> o vazamento é um "acidente de consumo" — dano que vai além do mau funcionamento e atinge terceiros (clientes da Padaria).</li>
+    <li><strong>Responsabilidade objetiva:</strong> não precisa provar dolo nem negligência. Basta: (1) dano ocorreu ✓ (2) serviço tinha defeito ✓ (3) nexo causal entre os dois ✓</li>
+    <li><strong>Nexo causal direto:</strong> atualização defeituosa → brecha → ataque → dados expostos. Cadeia ininterrupta. A empresa criou o elo inicial.</li>
+    <li><strong>Dados sensíveis:</strong> CPFs e dados bancários têm proteção reforçada pela LGPD. O dano à privacidade é presumido — não precisa de prova individual de prejuízo.</li>
+    <li class="highlight"><strong>Dano coletivo:</strong> não afeta só a Padaria, mas todos os clientes cadastrados. Isso reforça a atuação do MP como defensor da coletividade.</li>
+    <li><strong>LGPD descumprida:</strong> Art. 46 (medidas de segurança) e Art. 48 (comunicação de incidentes) foram violados. São obrigações legais, não opções.</li>
+    <li class="highlight"><strong>Omissão deliberada:</strong> a empresa sabia da brecha antes do ataque e não comunicou — agrava ainda mais a responsabilidade.</li>
+  </ul>
+
+  <div class="sec-tag" style="margin-top:2rem">Vício vs. Fato</div>
+  <h2 style="font-size:1.4rem">Por que o vazamento é mais grave que o bug?</h2>
+
+  <div class="diff">
+    <div class="diff-col" style="background:rgba(240,192,64,.03)">
+      <div class="dhead" style="color:var(--gold)">VÍCIO DO SERVIÇO — Art. 20 CDC</div>
+      <div class="diff-row"><strong>O quê</strong> Bug no cálculo do ICMS</div>
+      <div class="diff-row"><strong>Como</strong> Serviço funciona mal, sem acidente externo</div>
+      <div class="diff-row"><strong>Culpa</strong> Pode ser discutida</div>
+      <div class="diff-row"><strong>Consequência</strong> Corrigir ou reembolsar custos extras</div>
+    </div>
+    <div class="diff-col" style="background:rgba(224,53,53,.04)">
+      <div class="dhead" style="color:var(--red)">FATO DO SERVIÇO — Art. 14 CDC</div>
+      <div class="diff-row"><strong>O quê</strong> Vazamento de CPFs e dados bancários</div>
+      <div class="diff-row"><strong>Como</strong> Serviço causa acidente com dano a terceiros</div>
+      <div class="diff-row"><strong style="color:var(--red)">Culpa</strong> <strong>Irrelevante — responsabilidade automática</strong></div>
+      <div class="diff-row"><strong style="color:var(--red)">Consequência</strong> <strong>Indenizações muito mais graves</strong></div>
+    </div>
+  </div>
+
+  <div style="margin-top:1rem;background:var(--s2);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:0 8px 8px 0;padding:.9rem 1rem">
+    <p style="font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--green);font-weight:700;margin-bottom:.3rem">PARA MEMORIZAR</p>
+    <p style="font-size:.88rem">Vício → o serviço falha. Fato → o serviço machuca. O vazamento <em>machucou</em> pessoas reais.</p>
+  </div>
+</section>
+
+<!-- ── LEIS ── -->
+<section id="leis">
+  <div class="sec-tag">05 — Base Legal</div>
+  <h2>Artigos que sustentam sua fala</h2>
+
+  <div class="tbl-wrap">
+    <table class="law-tbl">
+      <thead>
+        <tr>
+          <th>ARTIGO</th>
+          <th>O QUE DIZ</th>
+          <th>COMO USAR</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="mine">
+          <td class="art">Art. 14 CDC</td>
+          <td>Responsabilidade objetiva pelo fato do serviço — independe de culpa.</td>
+          <td><strong>Principal fundamento.</strong> O vazamento é fato do serviço. Não precisa provar culpa.</td>
+        </tr>
+        <tr>
+          <td class="art">Art. 2º CDC</td>
+          <td>Consumidor: PF ou PJ que usa serviço como destinatário final.</td>
+          <td>Padaria é consumidora — base de toda a relação. (Bernardo e Vitor já terão falado disso.)</td>
+        </tr>
+        <tr>
+          <td class="art">Art. 6º, III CDC</td>
+          <td>Direito à informação clara e transparente sobre riscos.</td>
+          <td>A empresa sabia do risco e não informou — violação direta.</td>
+        </tr>
+        <tr>
+          <td class="art">Art. 20 CDC</td>
+          <td>Vício do serviço: prestação inadequada ou que diminui valor.</td>
+          <td>Cobre o bug do ICMS — útil para diferenciar dos dois institutos.</td>
+        </tr>
+        <tr class="mine">
+          <td class="art">LGPD Art. 46</td>
+          <td>Obrigação de adotar medidas técnicas de segurança para dados pessoais.</td>
+          <td>SafeCloud não usava criptografia adequada — violação direta da LGPD.</td>
+        </tr>
+        <tr class="mine">
+          <td class="art">LGPD Art. 48</td>
+          <td>Dever de comunicar incidentes de segurança à ANPD e aos titulares.</td>
+          <td>Empresa descobriu a brecha e não comunicou — infração legal.</td>
+        </tr>
+        <tr>
+          <td class="art">REsp 1.195.642 STJ</td>
+          <td>Teoria Finalista Mitigada: PJ vulnerável pode ser consumidora.</td>
+          <td>Sustenta que a Padaria se enquadra no CDC. (Contexto geral.)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="margin-top:.6rem;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--muted)">
+    ★ Linhas destacadas em vermelho = seus artigos principais
+  </p>
+</section>
+
+<!-- ── CONTRA ── -->
+<section id="contra">
+  <div class="sec-tag">06 — Contra-argumentação</div>
+  <h2>O que a defesa vai dizer — e como responder</h2>
+
+  <div class="counter-list">
+    <div class="counter">
+      <div class="counter-def">"O ataque foi culpa dos hackers, não nossa."</div>
+      <div class="counter-mp">A brecha foi criada pela própria atualização da SafeCloud. A empresa soube da vulnerabilidade <em>antes</em> do ataque e nada fez. O Art. 14 §3º só exclui responsabilidade se o terceiro for o causador <em>exclusivo</em> — aqui a empresa criou e manteve o elo inicial da cadeia.</div>
+    </div>
+    <div class="counter">
+      <div class="counter-def">"Nenhum sistema é 100% seguro."</div>
+      <div class="counter-mp">Grandes empresas adotam protocolos de resposta imediata e notificam afetados. A SafeCloud fez o oposto: sabia da brecha e ficou em silêncio. E ela mesma prometia "blindagem total" — assumiu esse padrão publicamente.</div>
+    </div>
+    <div class="counter">
+      <div class="counter-def">"A Padaria deveria ter medidas próprias de segurança."</div>
+      <div class="counter-mp">A responsabilidade objetiva não admite culpa concorrente pela falta de expertise técnica. A Padaria contratou o ERP exatamente para não precisar de expertise em segurança. Vulnerabilidade técnica é reconhecida e protegida pelo CDC.</div>
+    </div>
+    <div class="counter">
+      <div class="counter-def">"Não houve intenção de causar dano."</div>
+      <div class="counter-mp">No fato do serviço, intenção é irrelevante. A responsabilidade é objetiva. O que importa: houve dano? Sim. Houve falha no serviço? Sim. Existe nexo causal? Sim. Responsabilidade configurada — ponto final.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PERGUNTAS ── -->
+<section>
+  <div class="sec-tag">07 — Perguntas para Pressionar</div>
+  <h2>Use se tiver espaço no debate</h2>
+  <div class="q-list">
+    <div class="q-item">Que medidas técnicas concretas a SafeCloud adotou para se adequar à LGPD antes de lançar a atualização?</div>
+    <div class="q-item">Por que a empresa não comunicou o incidente à ANPD conforme exige o Art. 48 da LGPD?</div>
+    <div class="q-item">Se o serviço oferecia "blindagem total", como uma atualização interna abriu uma brecha crítica?</div>
+    <div class="q-item">Por que consumidores deveriam confiar novamente na empresa após terem dados bancários expostos?</div>
+    <div class="q-item">A busca por evitar cancelamentos pode justificar manter clientes sem informação sobre um risco real de segurança?</div>
+  </div>
+</section>
+
+<!-- ── COLA ── -->
+<section id="cola">
+  <div class="sec-tag">08 — Mini Cola Rápida</div>
+  <h2>Para consultar durante o debate</h2>
+
+  <div class="tbl-wrap">
+    <table class="cola-tbl">
+      <thead>
+        <tr>
+          <th>SITUAÇÃO</th>
+          <th>LEI</th>
+          <th>TIPO</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Padaria é consumidora (PJ vulnerável)</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted)">Art. 2º CDC + REsp 1.195.642</td>
+          <td><span class="tag tag-gold">Civil</span></td>
+        </tr>
+        <tr>
+          <td>Bug no ICMS / 45 dias sem correção</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted)">Art. 20 CDC</td>
+          <td><span class="tag tag-gold">Vício</span></td>
+        </tr>
+        <tr class="mine">
+          <td><strong>Vazamento de dados — SEU TEMA</strong></td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--red)">Art. 14 CDC</td>
+          <td><span class="tag tag-red">FATO</span></td>
+        </tr>
+        <tr class="mine">
+          <td><strong>LGPD: falta de segurança</strong></td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--red)">LGPD Art. 46</td>
+          <td><span class="tag tag-red">LGPD</span></td>
+        </tr>
+        <tr class="mine">
+          <td><strong>LGPD: não comunicou a brecha</strong></td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--red)">LGPD Art. 48</td>
+          <td><span class="tag tag-red">LGPD</span></td>
+        </tr>
+        <tr>
+          <td>Ocultação da vulnerabilidade</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted)">Art. 6º III CDC</td>
+          <td><span class="tag tag-gold">Omissão</span></td>
+        </tr>
+        <tr>
+          <td>"Blindagem Total" falsa</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted)">Art. 37 CDC</td>
+          <td><span class="tag tag-blue">Publicidade</span></td>
+        </tr>
+        <tr>
+          <td>Crime de publicidade enganosa</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted)">Art. 67 CDC</td>
+          <td><span class="tag tag-red">Penal</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:.5rem;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--muted)">★ Linhas vermelhas = seus artigos diretos</p>
+
+  <!-- FRASE FINAL -->
+  <div class="final-box">
+    <div class="final-quote">
+      "A SafeCloud vendeu <em>confiança</em>, prometeu <em>segurança</em><br>
+      e entregou <em>exposição</em>, prejuízo e vulnerabilidade."
+    </div>
+    <p class="final-attr">— Frase de encerramento da equipe do MP</p>
+  </div>
+</section>
+
+<footer>
+  Lucas Schutz · Subgrupo 2 · Integrante 3 · Debate Jurídico MP — ADS 3ª Fase<br>
+  CDC L.8.078/1990 · LGPD L.13.709/2018 · STJ REsp 1.195.642
+</footer>
+
+</body>
+</html>
